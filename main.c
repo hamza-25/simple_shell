@@ -7,15 +7,15 @@
  * @env: to get enviroment
  * Return: alwayd int
 */
-
 int main(int argc, char *argv[], char *env[])
 {
 	int pipe = 1, bytes, err_count = 1;
 	const char *del = " ";
 	size_t n_buffer = 0;
 	char *dollar = "$ ", *buffer = NULL, command[50], *args[20], *only_command;
+
 	if (argc != 1)
-		_printf("%s: 0: Can't open %s\n", argv[0], argv[1]), exit(1);	
+		_printf("%s: 0: Can't open %s\n", argv[0], argv[1]), exit(1);
 	if (isatty(STDIN_FILENO) == 0)
 		non_interactive(argc, argv, env, &pipe);
 	while (pipe)
