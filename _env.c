@@ -1,12 +1,13 @@
 #include "main.h"
-/**
- * main - get enviroment variable
- * @argc: count args
- * @argv: array of args string
- * @env: get enviroment
- * Return: void
-*/
 
+/**
+ * _env - Print environment variables
+ * @env: Array of environment variables
+ *
+ * This function prints each element in the `env` array, which represents the
+ * environment variables of the program. The elements are printed on separate
+ * lines.
+ */
 void _env(char *env[])
 {
 	int i = 0, j;
@@ -16,8 +17,10 @@ void _env(char *env[])
 		j = 0;
 		while (env[i][j] != '\0')
 			j++;
-		/*write(STDOUT_FILENO, env[i], j);
-		write(STDOUT_FILENO, "\n", 1);*/
+		/*
+		 * write(STDOUT_FILENO, env[i], j);
+		 * write(STDOUT_FILENO, "\n", 1);
+		 */
 		_printf("%s\n", env[i]);
 	}
 }
