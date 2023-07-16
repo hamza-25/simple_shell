@@ -1,5 +1,4 @@
 #include "main.h"
-#include <dirent.h>
 
 /**
 * _fork - Forks a child process and executes a command in it

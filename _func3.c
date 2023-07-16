@@ -36,6 +36,39 @@ char *take_only_cmd(char *buffer)
 }
 
 /**
+ *
+ *
+*/
+void ls_check(char *ave[], char *buf, char *only)
+{
+        const char *dir_path = NULL;
+        DIR *dir;
+        int index = 1;
+
+        if (_strcmp(only, "ls") == 0 || _strcmp(ave[0], "/usr/bin/ls") == 0 ||
+                        _strcmp(ave[0], "/bin/ls") == 0)
+        {
+                while (ave[index])
+                {
+                        if (ave[index][0] != '-')
+                        {
+                                dir_path = ave[index];
+                                dir = opendir(dir_path);
+                                if (!dir)
+                                {
+                                        _printf("%s: cannot access '%s': No such file or directory\n", only, dir_path);
+                                        if (ave[index + 1] == NULL)
+                                                free(buf), free(only), exit(0);
+                                }
+                                if (dir)
+                                        closedir(dir);
+                        }
+                        index++;
+                }
+        }
+}
+
+/**
  * _getline - Read a line from a file stream
  * @line: Pointer to a pointer that will store the read line
  * @n: Pointer to the size of the buffer allocated for the line
