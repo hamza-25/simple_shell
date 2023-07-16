@@ -12,16 +12,17 @@ void _fork(int argc, char *argv[], char *buf, char *ave[], char *only)
 {
 	signed int pid;
 	int status;
+
 	pid = fork();
 	if (pid == -1)
 	{
-		perror("Failed to fork"); 
+		perror("Failed to fork");
 		free(buf);
 		exit(EXIT_FAILURE);
 	}
 	if (pid == 0)
 	{
-		ls_check(ave, buf, only); 
+		ls_check(ave, buf, only);
 		execve(ave[0], ave, NULL);
 		free(buf);
 		perror(argv[argc - 1]);
