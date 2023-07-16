@@ -6,7 +6,6 @@
 * @string2: The input string
 * Return: return int
 */
-
 int _strcmp(const char *string1, const char *string2)
 {
 	while (*string1 && (*string1 == *string2))
@@ -22,7 +21,6 @@ int _strcmp(const char *string1, const char *string2)
 * @str: The input string
 * Return: The length of the string
 */
-
 size_t _strlen(const char *str)
 {
 	const char *s;
@@ -38,32 +36,40 @@ size_t _strlen(const char *str)
  * @c: The character to check
  * Return: 1 if it's a whitespace character, 0 otherwise
  */
-
 int _space(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\n' || c == '\r');
 }
 
 /**
+ * _memmov - Move memory block
+ * @des: Pointer to the destination memory block
+ * @src: Pointer to the source memory block
+ * @num: Number of bytes to move
  *
- *
-*/
+ * Return: des
+ * This function moves `num` bytes of memory from the source block pointed to
+ * by `src` to the destination block pointed to by `des`. The memory blocks may
+ * overlap. The function returns a pointer to the destination memory block.
+ */
+void *_memmov(void *des, const void *src, size_t num)
+{
+	const unsigned char *_src = (const unsigned char *)src;
+	unsigned char *_dest = (unsigned char *)des;
 
-void *_memmov(void *des, const void *src, size_t num) {
-    const unsigned char *_src = (const unsigned char *)src;
-    unsigned char *_dest = (unsigned char *)des;
+	if (_dest > _src)
+	{
+		_dest += num;
+		_src += num;
+		while (num--)
+			*--_dest = *--_src;
+	} else
+	{
+		while (num--)
+			*_dest++ = *_src++;
+	}
 
-    if (_dest > _src) {
-        _dest += num;
-        _src += num;
-        while (num--)
-            *--_dest = *--_src;
-    } else {
-        while (num--)
-            *_dest++ = *_src++;
-    }
-
-    return des;
+	return (des);
 }
 
 /**
@@ -71,23 +77,21 @@ void *_memmov(void *des, const void *src, size_t num) {
 * @buffer: The input buffer
 * return:  always 0
 */
+void trim_buffer(char *buffer)
+{
+	size_t size = _strlen(buffer), i = 0;
 
+	if (size == 0)
+		return;
 
-void trim_buffer(char *buffer) {
-    size_t size = _strlen(buffer), i = 0;
+	while (_space((unsigned char)buffer[i]))
+		i++;
 
-    if (size == 0)
-        return;
+	_memmov(buffer, buffer + i, size - i + 1);
+	size -= i;
 
-    while (_space((unsigned char)buffer[i]))
-        i++;
+	while (size > 0 && _space((unsigned char)buffer[size - 1]))
+		size--;
 
-    _memmov(buffer, buffer + i, size - i + 1);
-    size -= i;
-
-    while (size > 0 && _space((unsigned char)buffer[size - 1]))
-        size--;
-
-    buffer[size] = '\0';
+	buffer[size] = '\0';
 }
-
