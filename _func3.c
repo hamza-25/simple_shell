@@ -6,21 +6,21 @@
  *
  * Return: Pointer to the first command
  */
-char *take_only_cmd(char *buffer)
+char *take_only_cmd(char **buffer, int *no_exc)
 {
 	int i = 0;
 	char str_cmd[50], *cmd;
 
-	if (_strlen(buffer) >= 50)
+	if (_strlen(*buffer) >= 50)
 	{
 		perror("command to long\n");
-		free(buffer), exit(1);
+		free(*buffer), exit(1);
 	}
-	while (buffer[i])
+	while ((*buffer)[i])
 	{
-		if (buffer[i] == ' ')
+		if ((*buffer)[i] == ' ')
 			break;
-		str_cmd[i] = buffer[i];
+		str_cmd[i] = (*buffer)[i];
 		i++;
 	}
 	str_cmd[i] = '\0';
@@ -31,7 +31,11 @@ char *take_only_cmd(char *buffer)
 		exit(1);
 	}
 	strcpy(cmd, str_cmd);
-
+	if (_strcmp(cmd, "cd") == 0)
+	{
+		*no_exc = 0;
+  		change_dir(*buffer, cmd);
+	}
 	return (cmd);
 }
 

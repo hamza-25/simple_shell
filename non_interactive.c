@@ -10,7 +10,7 @@
 */
 void non_interactive(int argc, char *argv[], char *env[], int *pipe)
 {
-	int bytes, err_count = 1;
+	int bytes, err_count = 1, no_exc = 1;
 	const char *del = " ";
 	size_t n_buffer = 0;
 	char *buffer = NULL, command[50], *args[20], *only_command;
@@ -20,8 +20,8 @@ void non_interactive(int argc, char *argv[], char *env[], int *pipe)
 		trim_buffer(buffer);
 		if (_strcmp(buffer, "exit") == 0)
 			free(buffer), exit(0);
-		only_command = take_only_cmd(buffer);
-		if (*buffer)
+		only_command = take_only_cmd(&buffer, &no_exc);
+		if (*buffer && no_exc)
 		{
 			_tokenize(buffer, args, del, command, env);
 			if (access(command, X_OK) == 0)

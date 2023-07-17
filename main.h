@@ -31,7 +31,8 @@ void tostring(int num);
 char *path_check(char path[]);
 void _env(char *env[]);
 void non_interactive(int argc, char *argv[], char *env[], int *pipe);
-char *take_only_cmd(char *buffer);
+char *take_only_cmd(char **buffer, int *no_exc);
 ssize_t _getline(char **line, size_t *n, FILE *stream);
 void ls_check(char *ave[], char *buf, char *only);
+void change_dir(char *buffer, char *cmd);
 #endif
