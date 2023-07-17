@@ -26,7 +26,8 @@ void _fork(int argc, char *argv[], char *buf, char *ave[], char *only)
 		execve(ave[0], ave, NULL);
 		free(buf);
 		perror(argv[argc - 1]);
-		 exit(EXIT_FAILURE);
+		free(only);
+		exit(EXIT_FAILURE);
 	}
 	else
 		wait(&status);
