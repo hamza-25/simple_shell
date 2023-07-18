@@ -17,6 +17,7 @@ void non_interactive(int argc, char *argv[], char *env[], int *pipe)
 	*pipe = 0;
 	while ((bytes = getline(&buffer, &n_buffer, stdin)) != -1)
 	{
+		no_exc = 1;
 		trim_buffer(buffer);
 		comments(&buffer, &no_exc);
 		if (_strcmp(buffer, "exit") == 0)
