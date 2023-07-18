@@ -35,4 +35,5 @@ char *take_only_cmd(char **buffer, int *no_exc);
 ssize_t _getline(char **line, size_t *n, FILE *stream);
 void ls_check(char *ave[], char *buf, char *only);
 void change_dir(char *buffer, char *cmd);
+void comments(char **buf, int *no_exc);
 #endif

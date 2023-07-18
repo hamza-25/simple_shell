@@ -28,6 +28,7 @@ int main(int argc, char *argv[], char *env[])
 		if (buffer[bytes - 1] == '\n')
 			buffer[bytes - 1] = '\0';
 		trim_buffer(buffer);
+		comments(&buffer, &no_exc);
 		if (_strcmp(buffer, "exit") == 0)
 			free(buffer), exit(0);
 		if (_strcmp(buffer, "env") == 0)

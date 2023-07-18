@@ -37,3 +37,30 @@ void change_dir(char *buffer, char *cmd)
 	setenv("OLDPWD", now, 1);
 	}
 }
+
+/**
+ *
+ *
+*/
+
+void comments(char **buf, int *no_exc)
+{
+        char *test;
+        int i = 0;
+
+        test = *buf;
+        while (test[i])
+        {
+                if (test[0] == '#')
+                {
+                        *no_exc = 0;
+                        break;
+                }
+                else if (test[i] == '#' && test[i -1] == ' ')
+                {
+                        *(*buf + i) = '\0';
+                        break;
+                }
+                i++;
+        }
+}
