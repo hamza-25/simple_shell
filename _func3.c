@@ -3,6 +3,7 @@
 /**
  * take_only_cmd - Extract the first command from a string
  * @buffer: Input string containing one or more commands
+ * @no_exc: Number of commands
  *
  * Return: Pointer to the first command
  */
@@ -34,7 +35,7 @@ char *take_only_cmd(char **buffer, int *no_exc)
 	if (_strcmp(cmd, "cd") == 0)
 	{
 		*no_exc = 0;
-  		change_dir(*buffer, cmd);
+		change_dir(*buffer, cmd);
 	}
 	return (cmd);
 }
