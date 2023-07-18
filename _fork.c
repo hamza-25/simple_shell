@@ -25,7 +25,6 @@ void _fork(int argc, char *argv[], char *buf, char *ave[], char *only)
 		ls_check(ave, buf, only);
 		execve(ave[0], ave, NULL);
 		free(buf);
-		perror(argv[argc - 1]);
 		free(only);
 		exit(EXIT_FAILURE);
 	}
