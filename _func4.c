@@ -24,10 +24,10 @@ void change_dir(char *buffer, char *cmd)
 	{
 		if (back == NULL)
 			write(2, "cd: OLDPWD not set\n", _strlen("cd: OLDPWD not set\n"));
-			if (chdir(back) != 0)
-				perror("cd"), free(buffer), free(cmd), exit(1);
-			setenv("OLDPWD", now, 1);
-			_printf("%s\n", back);
+		if (chdir(back) != 0)
+			perror("cd"), free(buffer), free(cmd), exit(1);
+		setenv("OLDPWD", now, 1);
+		_printf("%s\n", back);
 	}
 	else
 	{

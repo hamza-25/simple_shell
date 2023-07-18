@@ -12,7 +12,9 @@ void _fork(int argc, char *argv[], char *buf, char *ave[], char *only)
 {
 	signed int pid;
 	int status;
-
+	
+	(void)argv;
+	(void)argc;
 	pid = fork();
 	if (pid == -1)
 	{
