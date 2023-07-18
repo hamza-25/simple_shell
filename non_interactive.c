@@ -18,8 +18,11 @@ void non_interactive(int argc, char *argv[], char *env[], int *pipe)
 	while ((bytes = getline(&buffer, &n_buffer, stdin)) != -1)
 	{
 		trim_buffer(buffer);
+		comments(&buffer, &no_exc);
 		if (_strcmp(buffer, "exit") == 0)
 			free(buffer), exit(0);
+		if (_strcmp(buffer, "env") == 0)
+                        _env(env);
 		only_command = take_only_cmd(&buffer, &no_exc);
 		if (*buffer && no_exc)
 		{
