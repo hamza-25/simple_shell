@@ -23,7 +23,7 @@ void non_interactive(int argc, char *argv[], char *env[], int *pipe)
 		if (_strcmp(buffer, "exit") == 0)
 			free(buffer), exit(0);
 		if (_strcmp(buffer, "env") == 0)
-                        _env(env);
+			_env(env);
 		only_command = take_only_cmd(&buffer, &no_exc);
 		if (*buffer && no_exc)
 		{
