@@ -32,8 +32,8 @@ void change_dir(char *buffer, char *cmd)
 	else
 	{
 	if (chdir(token) != 0)
-		_printf("-bash: %s: %s: No such file or directory\n", cmd, token),
-		free(buffer), free(cmd);
+		_printf("-bash: %s: %s: No such file or directory\n", cmd, token);
+	/*free(buffer), free(cmd);*/
 	setenv("OLDPWD", now, 1);
 	}
 }

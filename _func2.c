@@ -33,7 +33,7 @@ char *_strcpy(char *destin, const char *source)
  * @str: The string to store the first token separately.
  * @env: The array of environment variables.
 */
-void _tokenize(char *buf, char *args[],
+void tok_buf(char *buf, char *args[],
 							const char *del, char *str, char *env[])
 {
 	int index, i = 0, j = 0;

@@ -23,7 +23,7 @@ void _print(const char *str);
 char *_strdup(const char *str);
 void _fork(int argc, char *argv[], char *buf, char **ave, char *only);
 int _strcmp(const char *string1, const char *string2);
-void _tokenize(char *buf, char *args[], const char *del,
+void tok_buf(char *buf, char *args[], const char *del,
 							char *str, char *env[]);
 char *full_path(char *env[], char cmd[]);
 void _printf(const char *format, ...);

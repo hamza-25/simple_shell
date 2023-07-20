@@ -27,7 +27,7 @@ void non_interactive(int argc, char *argv[], char *env[], int *pipe)
 		only_command = take_only_cmd(&buffer, &no_exc);
 		if (*buffer && no_exc)
 		{
-			_tokenize(buffer, args, del, command, env);
+			tok_buf(buffer, args, del, command, env);
 			if (access(command, X_OK) == 0)
 				_fork(argc, argv, buffer, args, only_command);
 			else

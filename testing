@@ -1,0 +1,14 @@
+ls -l
+ls notdir/
+ cd ..
+cd -
+cd-
+cd 
+ cd  -
+  cd notdit/
+echo hamza #this is comment
+pwd
+    /bin/ls   -la    
+    ls    
+ ls # ../
+env 
