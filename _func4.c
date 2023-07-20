@@ -64,3 +64,51 @@ void comments(char **buf, int *no_exc)
                 i++;
         }
 }
+/**
+ *
+ *
+*/
+void tok(char **buf, const char **del, char **token, char **str, char *args[])
+{
+        int index;
+
+        (*token) = strtok((*buf), (*del));
+        index = 0;
+        while ((*token))
+        {
+                args[index] = (*token);
+                (*token) = strtok(NULL, (*del));
+                index++;
+        }
+        args[index] = NULL;
+        index = 0;
+        while (args[0][index] != '\0')
+        {
+                (*str)[index] = args[0][index];
+                index++;
+        }
+        (*str)[index] = '\0';
+}
+
+/**
+ *
+ *
+ *
+*/
+void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc, char *env[], char **only_command)
+{
+        int bytes;
+
+        bytes = _getline(buffer, n_buffer, stdin);
+                if (bytes == -1)
+                        free(*buffer), exit(1);
+                if ((*buffer)[bytes - 1] == '\n')
+                        (*buffer)[bytes - 1] = '\0';
+                trim_buffer(*buffer);
+                comments(buffer, no_exc);
+                if (_strcmp(*buffer, "exit") == 0)
+                        free(*buffer), exit(0);
+                if (_strcmp(*buffer, "env") == 0)
+                        _env(env);
+                *only_command = take_only_cmd(buffer, no_exc);
+}

@@ -52,24 +52,23 @@ int _space(char c)
  * by `src` to the destination block pointed to by `des`. The memory blocks may
  * overlap. The function returns a pointer to the destination memory block.
  */
-void *_memmov(void *des, const void *src, size_t num)
+void *c_memmov(void *dest, const void *src, size_t n)
 {
-	const unsigned char *_src = (const unsigned char *)src;
-	unsigned char *_dest = (unsigned char *)des;
+	char *to_dest, *current;
+	const char *from_src;
+	unsigned int j;
 
-	if (_dest > _src)
-	{
-		_dest += num;
-		_src += num;
-		while (num--)
-			*--_dest = *--_src;
-	} else
-	{
-		while (num--)
-			*_dest++ = *_src++;
-	}
-
-	return (des);
+	to_dest = (char *)dest;
+	from_src = (const char *)src;
+	current = malloc(sizeof(char) * n);
+	if (!current)
+		return NULL;
+	for (j = 0; j < n; ++j)
+		*(current + j) = *(from_src + j);
+	for (j = 0; j < n; ++j)
+		*(to_dest + j) = *(current + j);
+	free(current);
+	return dest;
 }
 
 /**
@@ -87,7 +86,7 @@ void trim_buffer(char *buffer)
 	while (_space((unsigned char)buffer[i]))
 		i++;
 
-	_memmov(buffer, buffer + i, size - i + 1);
+	c_memmov(buffer, buffer + i, size - i + 1);
 	size -= i;
 
 	while (size > 0 && _space((unsigned char)buffer[size - 1]))

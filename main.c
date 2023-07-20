@@ -14,6 +14,8 @@ int main(int argc, char *argv[], char *env[])
 	size_t n_buffer = 0;
 	char *dollar = "$ ", *buffer = NULL, command[50], *args[20], *only_command;
 
+	(void)only_command;
+	(void)bytes;
 	if (argc != 1)
 		_printf("%s: 0: Can't open %s\n", argv[0], argv[1]), exit(1);
 	if (isatty(STDIN_FILENO) == 0)
@@ -22,18 +24,7 @@ int main(int argc, char *argv[], char *env[])
 	{
 		no_exc = 1;
 		write(1, dollar, 2);
-		bytes = _getline(&buffer, &n_buffer, stdin);
-		if (bytes == -1)
-			free(buffer), exit(1);
-		if (buffer[bytes - 1] == '\n')
-			buffer[bytes - 1] = '\0';
-		trim_buffer(buffer);
-		comments(&buffer, &no_exc);
-		if (_strcmp(buffer, "exit") == 0)
-			free(buffer), exit(0);
-		if (_strcmp(buffer, "env") == 0)
-			_env(env);
-		only_command = take_only_cmd(&buffer, &no_exc);
+		handle_input_command(&buffer, &n_buffer, &no_exc, env, &only_command);
 		if (*buffer && no_exc)
 		{
 			tok_buf(buffer, args, del, command, env);

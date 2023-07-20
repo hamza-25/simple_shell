@@ -36,7 +36,7 @@ char *_strcpy(char *destin, const char *source)
 void tok_buf(char *buf, char *args[],
 							const char *del, char *str, char *env[])
 {
-	int index, i = 0, j = 0;
+	int i = 0, j = 0;
 	char *token, *find_path = NULL, get_cmd[50], new_buf[512];
 
 	if (buf[i] != '/')
@@ -60,22 +60,7 @@ void tok_buf(char *buf, char *args[],
 		new_buf[j] = '\0';
 		_strcpy(buf, new_buf), free(find_path);
 	}
-	token = strtok(buf, del);
-	index = 0;
-	while (token)
-	{
-		args[index] = token;
-		token = strtok(NULL, del);
-		index++;
-	}
-	args[index] = NULL;
-	index = 0;
-	while (args[0][index] != '\0')
-	{
-		str[index] = args[0][index];
-		index++;
-	}
-	str[index] = '\0';
+	tok(&buf, &del, &token, &str, args);
 }
 
 /**
