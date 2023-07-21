@@ -62,13 +62,13 @@ void *c_memmov(void *dest, const void *src, size_t n)
 	from_src = (const char *)src;
 	current = malloc(sizeof(char) * n);
 	if (!current)
-		return NULL;
+		return (NULL);
 	for (j = 0; j < n; ++j)
 		*(current + j) = *(from_src + j);
 	for (j = 0; j < n; ++j)
 		*(to_dest + j) = *(current + j);
 	free(current);
-	return dest;
+	return (dest);
 }
 
 /**

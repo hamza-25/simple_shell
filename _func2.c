@@ -39,7 +39,7 @@ void tok_buf(char *buf, char *args[],
 	int i = 0, j = 0;
 	char *token, *find_path = NULL, get_cmd[50], new_buf[512];
 
-	if (buf[i] != '/')
+	if (buf[i] != '/' && buf[i] != '.')
 	{
 		while (buf[i])
 		{
@@ -59,6 +59,20 @@ void tok_buf(char *buf, char *args[],
 			new_buf[j++] = buf[i++];
 		new_buf[j] = '\0';
 		_strcpy(buf, new_buf), free(find_path);
+	}
+	else if (buf[i] == '.' && buf[i + 1] == '/')
+	{
+		j = 0;
+		i += 2;
+		if (getcwd(new_buf, sizeof(new_buf)) == NULL)
+			perror("getcwd"), exit(EXIT_FAILURE);
+		while (new_buf[j])
+			j++;
+		new_buf[j++] = '/';
+		while (buf[i])
+			new_buf[j++] = buf[i++];
+		new_buf[j] = '\0';
+		_strcpy(buf, new_buf);
 	}
 	tok(&buf, &del, &token, &str, args);
 }

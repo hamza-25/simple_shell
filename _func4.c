@@ -110,6 +110,18 @@ void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc, char *en
                 if (_strcmp(*buffer, "exit") == 0)
                         free(*buffer), exit(0);
                 if (_strcmp(*buffer, "env") == 0)
+		{
+			*no_exc = 0;
                         _env(env);
-                *only_command = take_only_cmd(buffer, no_exc);
+		}
+		*only_command = take_only_cmd(buffer, no_exc);
+}
+/**
+ *
+ *
+*/
+void handle_sigint(int sig_num)
+{
+	(void)sig_num;
+	exit(0);
 }

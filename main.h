@@ -8,12 +8,11 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <stdarg.h>
-
 #include <string.h>
 #include <stdio.h>
-
 #include <sys/types.h>
 #include <dirent.h>
+#include <signal.h>
 
 char *_strcpy(char *destin, const char *source);
 void trim_buffer(char *buffer);
@@ -39,5 +38,6 @@ void comments(char **buf, int *no_exc);
 void tok(char **buf, const char **del, char **token, char **str, char *args[]);
 void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc, char *env[], char **only_command);
 void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc, char *env[], char **only_command);
+void handle_sigint(int sig_num);
 
 #endif

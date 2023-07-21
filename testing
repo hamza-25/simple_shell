@@ -31,3 +31,6 @@ echo -------test-------
 echo -------test-------
 env 
 echo -------test-------
+./runme
+echo -------test-------
+rtfg -reed

@@ -9,13 +9,12 @@
 */
 int main(int argc, char *argv[], char *env[])
 {
-	int pipe = 1, bytes, err_count = 1, no_exc = 1;
+	int pipe = 1, err_count = 1, no_exc = 1;
 	const char *del = " ";
 	size_t n_buffer = 0;
 	char *dollar = "$ ", *buffer = NULL, command[50], *args[20], *only_command;
 
-	(void)only_command;
-	(void)bytes;
+	signal(SIGINT, handle_sigint);
 	if (argc != 1)
 		_printf("%s: 0: Can't open %s\n", argv[0], argv[1]), exit(1);
 	if (isatty(STDIN_FILENO) == 0)
@@ -24,6 +23,7 @@ int main(int argc, char *argv[], char *env[])
 	{
 		no_exc = 1;
 		write(1, dollar, 2);
+		fflush(stdout);
 		handle_input_command(&buffer, &n_buffer, &no_exc, env, &only_command);
 		if (*buffer && no_exc)
 		{
@@ -32,7 +32,7 @@ int main(int argc, char *argv[], char *env[])
 				_fork(argc, argv, buffer, args, only_command);
 			else
 				_printf("%s: %d: %s: not found\n",
-						 argv[argc - 1], err_count++, only_command);
+						 argv[argc - 1], err_count++, only_command), fflush(stdout);;
 		}
 		free(only_command);
 	}
