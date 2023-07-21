@@ -1,1 +1,17 @@
-new shell project
+# Simple Shell Project
+
+This is a simple shell project created as part of [ALX SE Program](https://www.alxafrica.com/software-engineering/) in C language.
+
+## Compilation
+
+Use `gcc` to compile this project
+
+    gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+
+Then run it with `./hsh`
+
+## Authors
+
+- [HAMZA ICHAOUI](https://github.com/hamza-25)
+
+- [Yousif Abozid](https://github.com/YousifAbozid)

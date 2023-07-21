@@ -39,30 +39,31 @@ void change_dir(char *buffer, char *cmd)
 }
 
 /**
+ * comments - Processes comments in a string
  *
- *
-*/
-
+ * @buf: Pointer to the string buffer
+ * @no_exc: Pointer to an integer indicating whether an exception occurred
+ */
 void comments(char **buf, int *no_exc)
 {
-        char *test;
-        int i = 0;
+	char *test;
+	int i = 0;
 
-        test = *buf;
-        while (test[i])
-        {
-                if (test[0] == '#')
-                {
-                        *no_exc = 0;
-                        break;
-                }
-                else if (test[i] == '#' && test[i -1] == ' ')
-                {
-                        *(*buf + i) = '\0';
-                        break;
-                }
-                i++;
-        }
+	test = *buf;
+	while (test[i])
+	{
+		if (test[0] == '#')
+		{
+			*no_exc = 0;
+			break;
+		}
+		else if (test[i] == '#' && test[i - 1] == ' ')
+		{
+			*(*buf + i) = '\0';
+			break;
+		}
+		i++;
+	}
 }
 /**
  *
