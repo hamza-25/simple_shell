@@ -39,5 +39,6 @@ void tok(char **buf, const char **del, char **token, char **str, char *args[]);
 void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc, char *env[], char **only_command);
 void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc, char *env[], char **only_command);
 void handle_sigint(int sig_num);
+char *name_prg(int argc , char *argv[]);
 
 #endif
