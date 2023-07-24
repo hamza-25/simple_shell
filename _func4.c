@@ -65,61 +65,74 @@ void comments(char **buf, int *no_exc)
 		i++;
 	}
 }
+
 /**
+ * tok - Tokenizes a string
  *
- *
-*/
+ * @buf: Pointer to the string buffer
+ * @del: Pointer to the delimiter string
+ * @token: Pointer to the token string
+ * @str: Pointer to the output string
+ * @args: Array of arguments
+ */
 void tok(char **buf, const char **del, char **token, char **str, char *args[])
 {
-        int index;
+	int index;
 
-        (*token) = strtok((*buf), (*del));
-        index = 0;
-        while ((*token))
-        {
-                args[index] = (*token);
-                (*token) = strtok(NULL, (*del));
-                index++;
-        }
-        args[index] = NULL;
-        index = 0;
-        while (args[0][index] != '\0')
-        {
-                (*str)[index] = args[0][index];
-                index++;
-        }
-        (*str)[index] = '\0';
+	(*token) = strtok((*buf), (*del));
+	index = 0;
+	while ((*token))
+	{
+		args[index] = (*token);
+		(*token) = strtok(NULL, (*del));
+		index++;
+	}
+	args[index] = NULL;
+	index = 0;
+	while (args[0][index] != '\0')
+	{
+		(*str)[index] = args[0][index];
+		index++;
+	}
+	(*str)[index] = '\0';
 }
 
 /**
+ * handle_input_command - Handles the input command
  *
- *
- *
-*/
-void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc, char *env[], char **only_command)
+ * @buffer: Pointer to the input command buffer
+ * @n_buffer: Pointer to the size of the input command buffer
+ * @no_exc: Pointer to an integer indicating whether an exception occurred
+ * @env: Array of environment variables
+ * @only_command: Pointer to the variable storing the only command
+ */
+void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc,
+	char *env[], char **only_command)
 {
-        int bytes;
+	int bytes;
 
-        bytes = _getline(buffer, n_buffer, stdin);
-                if (bytes == -1)
-                        free(*buffer), exit(1);
-                if ((*buffer)[bytes - 1] == '\n')
-                        (*buffer)[bytes - 1] = '\0';
-                trim_buffer(*buffer);
-                comments(buffer, no_exc);
-                if (_strcmp(*buffer, "exit") == 0)
-                        free(*buffer), exit(0);
-                if (_strcmp(*buffer, "env") == 0)
-		{
-			*no_exc = 0;
-                        _env(env);
-		}
-		*only_command = take_only_cmd(buffer, no_exc);
+	bytes = _getline(buffer, n_buffer, stdin);
+	if (bytes == -1)
+		free(*buffer), exit(1);
+	if ((*buffer)[bytes - 1] == '\n')
+		(*buffer)[bytes - 1] = '\0';
+	trim_buffer(*buffer);
+	comments(buffer, no_exc);
+	if (_strcmp(*buffer, "exit") == 0)
+		free(*buffer), exit(0);
+	if (_strcmp(*buffer, "env") == 0)
+	{
+		*no_exc = 0;
+		_env(env);
+	}
+	*only_command = take_only_cmd(buffer, no_exc);
 }
+
 /**
+ * handle_sigint - Handles the SIGINT signal
  *
- *
-*/
+ * @sig_num: The signal number
+ */
 void handle_sigint(int sig_num)
 {
 	(void)sig_num;
