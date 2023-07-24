@@ -42,10 +42,10 @@ int _space(char c)
 }
 
 /**
- * _memmov - Move memory block
- * @des: Pointer to the destination memory block
+ * c_memmov - Move memory block
+ * @dest: Pointer to the destination memory block
  * @src: Pointer to the source memory block
- * @num: Number of bytes to move
+ * @n: Number of bytes to move
  *
  * Return: des
  * This function moves `num` bytes of memory from the source block pointed to
