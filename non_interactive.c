@@ -32,7 +32,7 @@ void non_interactive(int argc, char *argv[], char *env[], int *pipe)
 				_fork(argc, argv, buffer, args, only_command);
 			else
 				_printf("%s: %d: %s: not found\n",
-						argv[argc - 1], err_count++, only_command), fflush(stdout);;
+						argv[argc - 1], err_count++, only_command), fflush(stdout);
 		}
 		free(only_command);
 	}
