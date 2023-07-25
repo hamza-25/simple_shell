@@ -16,7 +16,7 @@ void non_interactive(int argc, char *argv[], char *env[], int *pipe)
 	char *buffer = NULL, command[50], *args[20], *only_command;
 
 	*pipe = 0;
-	while ((bytes = _getline(&buffer, &n_buffer, stdin)) != -1)
+	while ((bytes = getline(&buffer, &n_buffer, stdin)) != -1)
 	{
 		no_exc = 1;
 		trim_buffer(buffer);
