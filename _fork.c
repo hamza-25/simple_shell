@@ -7,8 +7,10 @@
 * @buf: The command buffer
 * @ave: The argument vector for execve
 * @only: The command to execute
+* @status: status to exit
 */
-void _fork(int argc, char *argv[], char *buf, char *ave[], char *only, int *status)
+void _fork(int argc, char *argv[], char *buf, char *ave[],
+		char *only, int *status)
 {
 	signed int pid;
 

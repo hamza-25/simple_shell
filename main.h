@@ -38,13 +38,10 @@ void ls_check(char *ave[], char *buf, char *only);
 void change_dir(char *buffer, char *cmd, int argc, char *argv[], int *n_err);
 void comments(char **buf, int *no_exc);
 void tok(char **buf, const char **del, char **token, char **str, char *args[]);
-<<<<<<< HEAD
 void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc, char **only_command, int status, int argc, char *argv[],int *n_err);
-/*void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc, char *env[], char **only_command);*/
-=======
+/*void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc, char *env[], char **only_command);
 void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc,
-	char *env[], char **only_command);
->>>>>>> 8303ee2d7800880972d912ba8245a9fc38e0c4e9
+	char *env[], char **only_command);*/
 void handle_sigint(int sig_num);
 char *name_prg(int argc , char *argv[]);
 /*char *my_strtok(char* str, const char* delim);

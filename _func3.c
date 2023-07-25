@@ -4,10 +4,13 @@
  * take_only_cmd - Extract the first command from a string
  * @buffer: Input string containing one or more commands
  * @no_exc: Number of commands
- *
+ * @n_err: Number of commands
+ * @argc: num of args
+ * @argv: vector agrs
  * Return: Pointer to the first command
  */
-char *take_only_cmd(char **buffer, int *no_exc , int argc, char *argv[], int *n_err)
+char *take_only_cmd(char **buffer, int *no_exc, int argc,
+		char *argv[], int *n_err)
 {
 	int i = 0;
 	char str_cmd[50], *cmd;
@@ -81,7 +84,6 @@ void ls_check(char *ave[], char *buf, char *only)
  * @line: Pointer to a pointer that will store the read line
  * @n: Pointer to the size of the buffer allocated for the line
  * @stream: File stream to read from
- *
  * Return: Number of bytes read
  */
 ssize_t _getline(char **line, size_t *n, FILE *stream)
@@ -126,13 +128,13 @@ ssize_t _getline(char **line, size_t *n, FILE *stream)
 }
 
 /**
- *
- *
+ * shell_exit - exit program
+ *@status: status num to exit
 */
 
 void shell_exit(int status)
 {
-        if (status == 512)
-                exit(status / 256);
-        exit(0);
+	if (status == 512)
+		exit(status / 256);
+	exit(0);
 }

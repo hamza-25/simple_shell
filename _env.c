@@ -2,16 +2,11 @@
 
 /**
  * _env - Print environment variables
- * @env: Array of environment variables
- *
- * This function prints each element in the `env` array, which represents the
- * environment variables of the program. The elements are printed on separate
- * lines.
  */
-void _env()
+void _env(void)
 {
 	char **env_ptr = environ;
-	
+
 	while (*env_ptr)
 	{
 		_printf("%s\n", *env_ptr);

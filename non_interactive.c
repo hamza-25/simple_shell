@@ -38,13 +38,8 @@ void non_interactive(int argc, char *argv[], char *env[], int *pipe)
 			if (access(command, X_OK) == 0)
 				_fork(argc, argv, buffer, args, only_command, &status);
 			else
-<<<<<<< HEAD
 				fprintf(stderr, "%s: %d: %s: not found\n",
-						argv[argc - 1], err_count++, only_command), fflush(stdout);;
-=======
-				_printf("%s: %d: %s: not found\n",
 						argv[argc - 1], err_count++, only_command), fflush(stdout);
->>>>>>> 8303ee2d7800880972d912ba8245a9fc38e0c4e9
 		}
 		free(only_command);
 	}

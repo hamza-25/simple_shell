@@ -1,12 +1,8 @@
 #include "main.h"
 
 /**
- * _env - Print environment variables
- * @env: Array of environment variables
- *
- * This function prints each element in the `env` array, which represents the
- * environment variables of the program. The elements are printed on separate
- * lines.
+ * _env_non - Print environment variables
+ * @no_exc: num to handle continue to fork
  */
 void _env_non(int *no_exc)
 {
