@@ -39,13 +39,8 @@ void change_dir(char *buffer, char *cmd, int argc, char *argv[], int *n_err);
 void comments(char **buf, int *no_exc);
 void tok(char **buf, const char **del, char **token, char **str, char *args[]);
 void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc, char **only_command, int status, int argc, char *argv[],int *n_err);
-/*void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc, char *env[], char **only_command);
-void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc,
-	char *env[], char **only_command);*/
 void handle_sigint(int sig_num);
 char *name_prg(int argc , char *argv[]);
-/*char *my_strtok(char* str, const char* delim);
-int my_setenv(const char* name, const char* value, int overwrite);*/
 void shell_exit(int status);
 void _env_non(int *no_exc);
 
