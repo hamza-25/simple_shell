@@ -38,7 +38,6 @@ void change_dir(char *buffer, char *cmd, int argc, char *argv[], int *n_err)
 		fprintf(stderr, "%s: %d: cd: can't cd to %s\n",
 				argv[argc - 1], *n_err++, token);
 	}
-	/*free(buffer), free(cmd);*/
 	setenv("OLDPWD", now, 1);
 	}
 }
