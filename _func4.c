@@ -130,9 +130,9 @@ void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc,
 	if (_strcmp(*buffer, "env") == 0)
 	{
 		*no_exc = 0;
-		_env(env);
+		_env();
 	}
-	*only_command = take_only_cmd(buffer, no_exc, n_err);
+	*only_command = take_only_cmd(buffer, no_exc, argc, argv, n_err);
 }
 
 /**
