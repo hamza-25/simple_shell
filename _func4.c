@@ -117,7 +117,7 @@ void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc,
 	int bytes;
 
 	(void)status;
-	bytes = _getline(buffer, n_buffer, stdin);
+	bytes = getline(buffer, n_buffer, stdin);
 	if (bytes == -1)
 		free(*buffer), exit(1);
 	if ((*buffer)[bytes - 1] == '\n')
