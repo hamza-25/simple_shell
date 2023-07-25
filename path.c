@@ -58,7 +58,7 @@ char *full_path(char *env[], char cmd[])
  */
 char *path_check(char path[])
 {
-	char *token, *path_ex, *short_path, final_path[75];
+	char *token, *path_ex, *short_path, final_path[256];
 	int i = 0;
 	const char *delim = ":";
 

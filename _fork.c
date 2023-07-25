@@ -8,10 +8,9 @@
 * @ave: The argument vector for execve
 * @only: The command to execute
 */
-void _fork(int argc, char *argv[], char *buf, char *ave[], char *only)
+void _fork(int argc, char *argv[], char *buf, char *ave[], char *only, int *status)
 {
 	signed int pid;
-	int status;
 
 	(void)argv;
 	(void)argc;
@@ -24,12 +23,15 @@ void _fork(int argc, char *argv[], char *buf, char *ave[], char *only)
 	}
 	if (pid == 0)
 	{
-		ls_check(ave, buf, only);
+		/*ls_check(ave, buf, only);*/
 		execve(ave[0], ave, NULL);
+		perror("execve fail");
 		free(buf);
 		free(only);
-		exit(EXIT_FAILURE);
+		exit(1);
 	}
 	else
-		wait(&status);
+	{
+		wait(status);
+	}
 }

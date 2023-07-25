@@ -9,7 +9,7 @@
 */
 int main(int argc, char *argv[], char *env[])
 {
-	int pipe = 1, err_count = 1, no_exc = 1;
+	int pipe = 1, err_count = 1, no_exc = 1, status;
 	const char *del = " ";
 	size_t n_buffer = 0;
 	char *dollar = "$ ", *buffer = NULL, command[50], *args[20], *only_command;
@@ -24,15 +24,15 @@ int main(int argc, char *argv[], char *env[])
 		no_exc = 1;
 		write(1, dollar, 2);
 		fflush(stdout);
-		handle_input_command(&buffer, &n_buffer, &no_exc, env, &only_command);
+		handle_input_command(&buffer, &n_buffer, &no_exc, &only_command, status, argc, argv, &err_count);
 		if (*buffer && no_exc)
 		{
 			tok_buf(buffer, args, del, command, env);
 			if (access(command, X_OK) == 0)
-				_fork(argc, argv, buffer, args, only_command);
+				_fork(argc, argv, buffer, args, only_command, &status);
 			else
-				_printf("%s: %d: %s: not found\n",
-						 name_prg(argc, argv), err_count++, only_command), fflush(stdout);;
+				fprintf(stderr, "%s: %d: %s: not found\n",
+						 argv[argc - 1], err_count++, only_command), fflush(stdout);
 		}
 		free(only_command);
 	}

@@ -7,7 +7,7 @@
  *
  * Return: Pointer to the first command
  */
-char *take_only_cmd(char **buffer, int *no_exc)
+char *take_only_cmd(char **buffer, int *no_exc , int argc, char *argv[], int *n_err)
 {
 	int i = 0;
 	char str_cmd[50], *cmd;
@@ -35,7 +35,7 @@ char *take_only_cmd(char **buffer, int *no_exc)
 	if (_strcmp(cmd, "cd") == 0)
 	{
 		*no_exc = 0;
-		change_dir(*buffer, cmd);
+		change_dir(*buffer, cmd, argc, argv, n_err);
 	}
 	return (cmd);
 }
@@ -63,10 +63,10 @@ void ls_check(char *ave[], char *buf, char *only)
 			dir = opendir(dir_path);
 			if (!dir)
 			{
-				_printf("%s: cannot access '%s': No such file or directory\n",
+				fprintf(stderr, "%s: cannot access '%s': No such file or directory\n",
 				only, dir_path);
 				if (ave[index + 1] == NULL)
-					free(buf), free(only), exit(0);
+					free(buf), free(only), exit(2);
 			}
 			if (dir)
 				closedir(dir);
@@ -123,4 +123,16 @@ ssize_t _getline(char **line, size_t *n, FILE *stream)
 
 	(*line)[total_byt_read] = '\0';
 	return (total_byt_read);
+}
+
+/**
+ *
+ *
+*/
+
+void shell_exit(int status)
+{
+        if (status == 512)
+                exit(status / 256);
+        exit(0);
 }

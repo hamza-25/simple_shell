@@ -6,7 +6,7 @@
  * @buffer: The input command buffer
  * @cmd: The command name
  */
-void change_dir(char *buffer, char *cmd)
+void change_dir(char *buffer, char *cmd, int argc, char *argv[], int *n_err)
 {
 	char *token, *back = NULL, *now = NULL;
 
@@ -32,7 +32,9 @@ void change_dir(char *buffer, char *cmd)
 	else
 	{
 	if (chdir(token) != 0)
-		_printf("-bash: %s: %s: No such file or directory\n", cmd, token);
+	{
+			fprintf(stderr, "%s: %d: cd: can't cd to %s\n", argv[argc - 1], *n_err++, token);
+	}
 	/*free(buffer), free(cmd);*/
 	setenv("OLDPWD", now, 1);
 	}
@@ -96,10 +98,11 @@ void tok(char **buf, const char **del, char **token, char **str, char *args[])
  *
  *
 */
-void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc, char *env[], char **only_command)
+void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc, char **only_command, int status, int argc, char *argv[], int *n_err)
 {
         int bytes;
 
+	(void)status;
         bytes = _getline(buffer, n_buffer, stdin);
                 if (bytes == -1)
                         free(*buffer), exit(1);
@@ -107,14 +110,14 @@ void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc, char *en
                         (*buffer)[bytes - 1] = '\0';
                 trim_buffer(*buffer);
                 comments(buffer, no_exc);
-                if (_strcmp(*buffer, "exit") == 0)
+               	if (_strcmp(*buffer, "exit") == 0)
                         free(*buffer), exit(0);
                 if (_strcmp(*buffer, "env") == 0)
 		{
 			*no_exc = 0;
-                        _env(env);
+                        _env();
 		}
-		*only_command = take_only_cmd(buffer, no_exc);
+		*only_command = take_only_cmd(buffer, no_exc, argc, argv, n_err);
 }
 /**
  *
@@ -122,6 +125,5 @@ void handle_input_command(char **buffer, size_t *n_buffer, int *no_exc, char *en
 */
 void handle_sigint(int sig_num)
 {
-	(void)sig_num;
-	exit(0);
+	exit(sig_num);
 }
