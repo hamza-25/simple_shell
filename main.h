@@ -36,7 +36,6 @@ void non_interactive(int argc, char *argv[],
 		char *env[], int *pipe);
 char *take_only_cmd(char **buffer, int *no_exc,
 		int argc, char *argv[], int *n_err);
-ssize_t _getline(char **line, size_t *n, FILE *stream);
 void ls_check(char *ave[], char *buf, char *only);
 void change_dir(char *buffer, char *cmd, int argc, char *argv[], int *n_err);
 void comments(char **buf, int *no_exc);
