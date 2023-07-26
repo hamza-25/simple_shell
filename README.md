@@ -9,9 +9,3 @@ Use `gcc` to compile this project
     gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 
 Then run it with `./hsh`
-
-## Authors
-
-- [HAMZA ICHAOUI](https://github.com/hamza-25)
-
-- [Yousif Abozid](https://github.com/YousifAbozid)
