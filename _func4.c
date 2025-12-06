@@ -11,35 +11,57 @@
 void change_dir(char *buffer, char *cmd, int argc, char *argv[], int *n_err)
 {
 	char *token, *back = NULL, *now = NULL;
+	char *buffer_copy;
 
+	(void)cmd;
 	now = getenv("PWD");
 	back = getenv("OLDPWD");
-	token = strtok(buffer, " ");
+	
+	/* Create a copy of buffer since strtok modifies it */
+	buffer_copy = _strdup(buffer);
+	if (!buffer_copy)
+		return;
+		
+	token = strtok(buffer_copy, " ");
 	token = strtok(NULL, " ");
+	
 	if (token == NULL)
 	{
+		/* cd with no arguments - go to HOME */
 		if (chdir(getenv("HOME")) != 0)
-			perror("cd"), free(buffer), free(cmd), exit(1);
-		setenv("OLDPWD", now, 1);
+			perror("cd");
+		else if (now)
+			setenv("OLDPWD", now, 1);
 	}
 	else if (_strcmp(token, "-") == 0)
 	{
+		/* cd - goes to previous directory */
 		if (back == NULL)
 			write(2, "cd: OLDPWD not set\n", _strlen("cd: OLDPWD not set\n"));
-		if (chdir(back) != 0)
-			perror("cd"), free(buffer), free(cmd), exit(1);
-		setenv("OLDPWD", now, 1);
-		_printf("%s\n", back);
+		else if (chdir(back) != 0)
+			perror("cd");
+		else
+		{
+			if (now)
+				setenv("OLDPWD", now, 1);
+			_printf("%s\n", back);
+		}
 	}
 	else
 	{
-	if (chdir(token) != 0)
-	{
-		fprintf(stderr, "%s: %d: cd: can't cd to %s\n",
-				argv[argc - 1], *n_err++, token);
+		/* cd to specified directory */
+		if (chdir(token) != 0)
+		{
+			fprintf(stderr, "%s: %d: cd: can't cd to %s\n",
+					argv[argc - 1], (*n_err)++, token);
+		}
+		else if (now)
+		{
+			setenv("OLDPWD", now, 1);
+		}
 	}
-	setenv("OLDPWD", now, 1);
-	}
+	
+	free(buffer_copy);
 }
 
 /**

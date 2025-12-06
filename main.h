@@ -48,5 +48,7 @@ void handle_sigint(int sig_num);
 char *name_prg(int argc, char *argv[]);
 void shell_exit(int status);
 void _env_non(int *no_exc);
+void print_prompt(void);
+void update_pwd_env(void);
 
 #endif
