@@ -34,7 +34,7 @@ char *take_only_cmd(char **buffer, int *no_exc, int argc,
 		perror("fail to allocate");
 		exit(1);
 	}
-	strcpy(cmd, str_cmd);
+	_strcpy(cmd, str_cmd);
 	if (_strcmp(cmd, "cd") == 0)
 	{
 		*no_exc = 0;

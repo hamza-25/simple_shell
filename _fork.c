@@ -26,7 +26,7 @@ void _fork(int argc, char *argv[], char *buf, char *ave[],
 	if (pid == 0)
 	{
 		/*ls_check(ave, buf, only);*/
-		execve(ave[0], ave, NULL);
+		execve(ave[0], ave, environ);
 		perror("execve fail");
 		free(buf);
 		free(only);

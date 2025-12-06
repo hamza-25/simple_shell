@@ -19,6 +19,8 @@ void non_interactive(int argc, char *argv[], char *env[], int *pipe)
 	while ((bytes = getline(&buffer, &n_buffer, stdin)) != -1)
 	{
 		no_exc = 1;
+		if (buffer[bytes - 1] == '\n')
+			buffer[bytes - 1] = '\0';
 		trim_buffer(buffer);
 		comments(&buffer, &no_exc);
 		if (_strcmp(buffer, "exit") == 0)
@@ -32,7 +34,7 @@ void non_interactive(int argc, char *argv[], char *env[], int *pipe)
 		if (_strcmp(buffer, "env") == 0)
 			_env_non(&no_exc);
 		only_command = take_only_cmd(&buffer, &no_exc, argc, argv, &err_count);
-		if (*buffer && no_exc)
+		if (buffer && *buffer && no_exc)
 		{
 			tok_buf(buffer, args, del, command, env);
 			if (access(command, X_OK) == 0)

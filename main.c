@@ -9,7 +9,7 @@
 */
 int main(int argc, char *argv[], char *env[])
 {
-	int pipe = 1, err_count = 1, no_exc = 1, status;
+	int pipe = 1, err_count = 1, no_exc = 1, status = 0;
 	const char *del = " ";
 	size_t n_buffer = 0;
 	char *dollar = "$ ", *buffer = NULL, command[50], *args[20], *only_command;
@@ -26,7 +26,7 @@ int main(int argc, char *argv[], char *env[])
 		fflush(stdout);
 		handle_input_command(&buffer, &n_buffer, &no_exc,
 				&only_command, status, argc, argv, &err_count);
-		if (*buffer && no_exc)
+		if (buffer && *buffer && no_exc)
 		{
 			tok_buf(buffer, args, del, command, env);
 			if (access(command, X_OK) == 0)

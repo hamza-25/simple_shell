@@ -9,45 +9,57 @@
  */
 char *full_path(char *env[], char cmd[])
 {
-	char full_path[1024], *path_returned = NULL, *rslt;
-	int i, j, index = 0, cmd_i = 0;
+	char *path_env = NULL, *path_copy, *token, *result;
+	char test_path[1024];
+	int i;
+	const char *delim = ":";
 
+	/* Find PATH environment variable */
 	for (i = 0; env[i]; i++)
 	{
-		j = 0;
-		if (env[i][j] == 'P' && env[i][j + 2] == 'T' && env[i][j + 4] == '=')
+		if (env[i][0] == 'P' && env[i][1] == 'A' && env[i][2] == 'T' && 
+		    env[i][3] == 'H' && env[i][4] == '=')
 		{
-			j += 5;
-			while (env[i][j])
-			{
-				full_path[index] = env[i][j];
-				if (env[i][j + 1] == ':')
-				{
-					index++;
-					full_path[index++] = '/';
-					while (cmd[cmd_i])
-					full_path[index++] = cmd[cmd_i++];
-					cmd_i = 0;
-					index--;
-				}
-				j++;
-				index++;
-			}
-			full_path[index++] = '/';
-			while (cmd[cmd_i])
-				full_path[index++] = cmd[cmd_i++];
-			full_path[index] = '\0';
+			path_env = env[i] + 5;
+			break;
 		}
 	}
-	path_returned = path_check(full_path);
-	rslt = malloc(_strlen(path_returned) + 1);
-	if (!rslt)
+	
+	if (!path_env)
+		return (_strdup(cmd));
+
+	path_copy = _strdup(path_env);
+	if (!path_copy)
+		return (_strdup(cmd));
+
+	token = strtok(path_copy, delim);
+	while (token)
 	{
-		perror("fail to allocate");
-		exit(1);
+		size_t token_len;
+		
+		token_len = _strlen(token);
+		
+		_strcpy(test_path, token);
+		if (token_len > 0 && test_path[token_len - 1] != '/')
+		{
+			test_path[token_len] = '/';
+			test_path[token_len + 1] = '\0';
+			token_len++;
+		}
+		
+		_strcpy(test_path + token_len, cmd);
+		
+		if (access(test_path, X_OK) == 0)
+		{
+			result = _strdup(test_path);
+			free(path_copy);
+			return (result);
+		}
+		token = strtok(NULL, delim);
 	}
-	_strcpy(rslt, path_returned);
-	return (rslt);
+	
+	free(path_copy);
+	return (_strdup(cmd));
 }
 
 /**
@@ -58,11 +70,16 @@ char *full_path(char *env[], char cmd[])
  */
 char *path_check(char path[])
 {
-	char *token, *path_ex, *short_path, final_path[256];
+	char *token, *path_ex = NULL, final_path[256];
+	char *path_copy;
 	int i = 0;
 	const char *delim = ":";
 
-	token = strtok(path, delim);
+	path_copy = _strdup(path);
+	if (!path_copy)
+		return (NULL);
+	
+	token = strtok(path_copy, delim);
 	while (token)
 	{
 		path_ex = token;
@@ -74,12 +91,14 @@ char *path_check(char path[])
 				i++;
 			}
 			final_path[i] = '\0';
-			/*path_ex  = final_path;*/
-			_strcpy(path_ex, final_path);
-			return (path_ex);
+			free(path_copy);
+			_strcpy(path, final_path);
+			return (path);
 		}
 		token = strtok(NULL, delim);
 	}
-	short_path = path_ex;
-	return (short_path);
-	}
+	free(path_copy);
+	if (path_ex)
+		_strcpy(path, path_ex);
+	return (path);
+}
